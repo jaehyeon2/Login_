@@ -11,10 +11,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 public class SignupActivity extends AppCompatActivity {
     Button signup_fin_btn;
-    EditText signup_ID, signup_PW;
-    String ID, PW;
+    EditText signup_ID, signup_PW, signup_NM;
+    String ID, PW, NAME;
 
     int version=1;
     DatabaseOpenHelper helper;
@@ -30,6 +31,7 @@ public class SignupActivity extends AppCompatActivity {
 
         signup_ID = findViewById(R.id.signup_ID);
         signup_PW = findViewById(R.id.signup_PW);
+        signup_NM = findViewById(R.id.signup_Name);
 
         helper = new DatabaseOpenHelper(SignupActivity.this, DatabaseOpenHelper.tableName, null, version);
         database = helper.getWritableDatabase();
@@ -41,6 +43,8 @@ public class SignupActivity extends AppCompatActivity {
 
                 ID = signup_ID.getText().toString();
                 PW = signup_PW.getText().toString();
+                NAME = signup_NM.getText().toString();
+
 
                 if(ID.length() == 0 || PW.length() == 0) {
                     //아이디와 비밀번호는 필수 입력사항입니다.
@@ -53,7 +57,7 @@ public class SignupActivity extends AppCompatActivity {
                 cursor = database.rawQuery(sql, null);
 
                 if(cursor.getCount() != 0){
-                    Toast.makeText(getApplicationContext(), "존재하는 id 입니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "존재하는 ID 입니다.", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     //id, pw, name을 DB에 저장시키는 코드 필요
